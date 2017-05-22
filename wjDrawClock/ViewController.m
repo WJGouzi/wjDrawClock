@@ -45,7 +45,6 @@
     self.wjClockView.minute = [WJTime wjTimeMinuteWithTimeStamp:timeStamp];
     self.wjClockView.hour = [WJTime wjTimeHourWithTimeStamp:timeStamp] - 12;
     self.wjTimeLable.text = [NSString stringWithFormat:@"%02d:%02d:%02d", self.wjClockView.hour + 12, self.wjClockView.minute, self.wjClockView.seconds];
-    
 }
 
 

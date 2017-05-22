@@ -47,15 +47,13 @@
     return timeStr;
 }
 
+
 - (int)getSecondsWithTimeStamp:(NSString *)timeStamp {
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Chongqing"];
     [formatter setDateFormat:@"ss"];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeStamp.doubleValue];
-    
     NSString *dateStr = [formatter stringFromDate:date];
-    
     return [dateStr intValue];
 }
 

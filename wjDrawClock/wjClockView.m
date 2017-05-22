@@ -15,6 +15,16 @@
     [self setNeedsDisplay];
 }
 
+- (void)setMinute:(int)minute {
+    _minute = minute;
+    [self setNeedsDisplay];
+}
+
+- (void)setHour:(int)hour {
+    _hour = hour;
+    [self setNeedsDisplay];
+}
+
 
 - (void)drawRect:(CGRect)rect {
     [self drawWatchFaceWithRect:rect];
@@ -43,7 +53,7 @@
         CGFloat y = center.y + radius * sin(angle);
         [clock moveToPoint:CGPointMake(x, y)];
         // 刻度线的另一端
-        CGFloat x0 = center.x + (radius - 10) * cos(angle) ;
+        CGFloat x0 = center.x + (radius - 10) * cos(angle);
         CGFloat y0 = center.y + (radius - 10) * sin(angle);
         CGFloat x1 = center.x + (radius - 20) * cos(angle);
         CGFloat y1 = center.y + (radius - 20) * sin(angle);
@@ -82,7 +92,7 @@
     CGFloat radius = rect.size.width * 0.5 - 30; // 秒针长度
     [path moveToPoint:center];
     
-    CGFloat angle = -M_PI_2 + (self.minute / 60.0) * M_PI * 2;
+    CGFloat angle = -M_PI_2 + (self.minute / 60.0) * M_PI * 2 + self.seconds / 3600.f * M_PI * 2;
     // 圆上的点
     CGFloat x = center.x + radius * cos(angle) ;
     CGFloat y = center.y + radius * sin(angle);
@@ -99,7 +109,7 @@
     CGFloat radius = rect.size.width * 0.5 - 45; // 秒针长度
     [path moveToPoint:center];
     
-    CGFloat angle = -M_PI_2 + (self.hour / 12.0) * M_PI * 2;
+    CGFloat angle = -M_PI_2 + (self.hour / 12.0) * M_PI * 2 + self.minute / 720.f * M_PI * 2 + self.seconds / (12 * 3600.f) * M_PI * 2;
     // 圆上的点
     CGFloat x = center.x + radius * cos(angle) ;
     CGFloat y = center.y + radius * sin(angle);
@@ -107,7 +117,6 @@
     [[UIColor blueColor] set];
     [path stroke];
 }
-
 
 
 
