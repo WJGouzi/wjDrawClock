@@ -26,16 +26,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 定时器刷新方式一:
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f repeats:YES block:^(NSTimer * _Nonnull timer) {
 //        [self catchTime];
         [self catchTimeDict];
     }];
     [self.timer fire];
+    
+    // 定时器刷新方式二: 有点辣眼睛
+//    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(catchTime)];
+//    [link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 - (void)dealloc {
     [self.timer invalidate];
 }
+
 
 // 获取时间
 - (void)catchTime {
