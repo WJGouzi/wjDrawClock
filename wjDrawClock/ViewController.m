@@ -26,10 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [self catchTime];
-    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f repeats:YES block:^(NSTimer * _Nonnull timer) {
-        [self catchTime];
+//        [self catchTime];
+        [self catchTimeDict];
     }];
     [self.timer fire];
 }
@@ -41,6 +40,7 @@
 // 获取时间
 - (void)catchTime {
     NSString *timeStamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
+    // 方法一
     self.wjClockView.seconds = [WJTime wjTimeSecondsWithTimeStamp:timeStamp];
     self.wjClockView.minute = [WJTime wjTimeMinuteWithTimeStamp:timeStamp];
     self.wjClockView.hour = [WJTime wjTimeHourWithTimeStamp:timeStamp] - 12;
@@ -48,6 +48,18 @@
 }
 
 
+- (void)catchTimeDict {
+    NSString *timeStamp = [NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]];
+    // 方法二
+    NSDictionary *timeDict = [WJTime wjTimeGetTimeDictWithTimeStamp:timeStamp];
+    NSNumber *seconds = timeDict[@"seconds"];
+    NSNumber *minute = timeDict[@"minute"];
+    NSNumber *hour = timeDict[@"hour"];
+    self.wjClockView.seconds = seconds.intValue;
+    self.wjClockView.minute = minute.intValue;
+    self.wjClockView.hour = hour.intValue - 12;
+    self.wjTimeLable.text = [NSString stringWithFormat:@"%02d:%02d:%02d", self.wjClockView.hour + 12, self.wjClockView.minute, self.wjClockView.seconds];
+}
 
 
 @end

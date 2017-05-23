@@ -48,6 +48,9 @@
 }
 
 
+
+
+#pragma mark - 分别转换成时分秒
 - (int)getSecondsWithTimeStamp:(NSString *)timeStamp {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Chongqing"];
@@ -101,6 +104,38 @@
     return hour;
 }
 
+
+#pragma mark - 将时分秒放在字典中
+- (NSDictionary *)getTimeDictWithTimeStamp:(NSString *)timeStamp {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Chongqing"];
+    [formatter setDateFormat:@"HH:mm:ss"]; // 24小时制
+    //    [formatter setDateFormat:@"hh:mm:ss"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeStamp.doubleValue];
+    
+    // 将时间转化为字符串返回
+    NSString *dateStr = [formatter stringFromDate:date];
+    
+    int hour = [dateStr substringWithRange:NSMakeRange(0, 2)].intValue;
+    int minute = [dateStr substringWithRange:NSMakeRange(3, 2)].intValue;
+    int seconds = [dateStr substringWithRange:NSMakeRange(6, 2)].intValue;
+    NSDictionary *dict = @{
+                           @"hour" : @(hour),
+                           @"minute" : @(minute),
+                           @"seconds" : @(seconds)
+                           };
+    
+    return dict;
+}
+
+
+
++ (NSDictionary *)wjTimeGetTimeDictWithTimeStamp:(NSString *)timeStamp {
+    WJTime *time = [[self alloc] init];
+    NSDictionary *dict = [time getTimeDictWithTimeStamp:timeStamp];
+    return dict;
+}
 
 
 @end

@@ -33,4 +33,8 @@
 - (int)getHourWithTimeStamp:(NSString *)timeStamp;
 + (int)wjTimeHourWithTimeStamp:(NSString *)timeStamp;
 
+// 将时间转为字典
+- (NSDictionary *)getTimeDictWithTimeStamp:(NSString *)timeStamp;
++ (NSDictionary *)wjTimeGetTimeDictWithTimeStamp:(NSString *)timeStamp;
+
 @end
